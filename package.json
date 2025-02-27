@@ -18,7 +18,8 @@
     "prisma": "^6.4.1",
     "tsup": "^8.3.6",
     "tsx": "^4.19.3",
-    "typescript": "^5.7.3"
+    "typescript": "^5.7.3",
+    "vitest": "^3.0.7"
   },
   "dependencies": {
     "-": "^0.0.1",
