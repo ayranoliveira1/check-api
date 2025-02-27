@@ -2,3 +2,4 @@ node_mudoles
 build
 .env
 node_modules
+coverage
