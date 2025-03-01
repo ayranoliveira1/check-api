@@ -29,7 +29,7 @@ describe("Authenticate use case", () => {
   });
 
   it("should not be able to authenticate with wrpong email", async () => {
-    expect(async () => {
+    await expect(async () => {
       await autheticateUseCase.execute({
         email: "ayranoliveira1@gmail.com",
         password: "12345678",
@@ -44,7 +44,7 @@ describe("Authenticate use case", () => {
       password_hash: await hash("12345678", 6),
     });
 
-    expect(async () => {
+    await expect(async () => {
       await autheticateUseCase.execute({
         email: "ayranoliveira1@gmail.com",
         password: "123456789",
