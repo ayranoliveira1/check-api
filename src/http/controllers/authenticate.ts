@@ -1,11 +1,8 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { z } from "zod";
 
-import { RegisterUseCase } from "@/user-cases/register";
-import { PrismaUsersReposity } from "@/repositories/prisma/prisma-users-repository";
-import { UserAlreadyExistsError } from "@/user-cases/erros/user-already-exists-error";
-import { AuthenticateUseCase } from "@/user-cases/authenticate";
 import { InvalidCredentialsError } from "@/user-cases/erros/invalid-credentials-error";
+import { makeAuthenticateUseCase } from "@/user-cases/factories/make-authenticate-use-case";
 
 export async function authenticate(
   request: FastifyRequest,
@@ -19,8 +16,7 @@ export async function authenticate(
   const { email, password } = registerBodyshchema.parse(request.body);
 
   try {
-    const usersersReposity = new PrismaUsersReposity();
-    const authenticateUseCase = new AuthenticateUseCase(usersersReposity);
+    const authenticateUseCase = makeAuthenticateUseCase();
 
     await authenticateUseCase.execute({
       email,
