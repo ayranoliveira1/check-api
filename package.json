@@ -34,6 +34,7 @@
     "@rocketseat/eslint-config": "^2.2.2",
     "bcryptjs": "^3.0.2",
     "D": "^1.0.0",
+    "dayjs": "^1.11.13",
     "dotenv": "^16.4.7",
     "eslint": "^8.57.1",
     "fastify": "^5.2.1",
