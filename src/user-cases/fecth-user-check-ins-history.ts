@@ -23,10 +23,6 @@ export class FetchUserCheckInsHistoryUseCase {
       page
     );
 
-    if (!checkIns) {
-      throw new ResourceNotFoundError();
-    }
-
     return { checkIns };
   }
 }
