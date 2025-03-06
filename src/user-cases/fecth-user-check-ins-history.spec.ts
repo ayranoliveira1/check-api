@@ -1,6 +1,5 @@
 import { expect, describe, it, beforeEach } from "vitest";
 import { InMemoryCheckInsRepository } from "../repositories/in-memory/in-memory-check-ins-repository";
-
 import { FetchUserCheckInsHistoryUseCase } from "./fecth-user-check-ins-history";
 
 let checkInRepository: InMemoryCheckInsRepository;
