@@ -3,7 +3,7 @@ import { Prisma, User } from "@prisma/client";
 import { UsersRepository } from "../user-repository";
 
 export class PrismaUsersReposity implements UsersRepository {
-  findById(id: string): Promise<User | null> {
+  findById(id: string) {
     const user = prisma.user.findUnique({
       where: {
         id,
