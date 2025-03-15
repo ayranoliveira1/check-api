@@ -53,7 +53,7 @@ describe("Validate check-in use case", () => {
 
     vi.advanceTimersByTime(twentyOneMinutesInMs);
 
-    expect(async () => {
+    await expect(async () => {
       await validateCheckInUseCase.execute({
         checkInId: createdCheckIn.id,
       });
