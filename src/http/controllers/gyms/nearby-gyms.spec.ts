@@ -1,6 +1,8 @@
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import request from "supertest";
 import { app } from "../../../app";
+import { hash } from "bcryptjs";
+import { prisma } from "../../../lib/prisma";
 
 describe("Nearby Gyms (e2e)", async () => {
   beforeAll(async () => {
@@ -12,10 +14,13 @@ describe("Nearby Gyms (e2e)", async () => {
   });
 
   it("should be able to list nearby gyms", async () => {
-    await request(app.server).post("/users").send({
-      name: "teste 6",
-      email: "ayranaai87@gmail.com",
-      password: "ayran123",
+    await prisma.user.create({
+      data: {
+        name: "teste 4",
+        email: "ayranaai87@gmail.com",
+        password_hash: await hash("ayran123", 6),
+        role: "ADMIN",
+      },
     });
 
     const response = await request(app.server).post("/sessions").send({

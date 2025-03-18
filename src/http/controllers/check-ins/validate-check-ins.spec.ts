@@ -2,6 +2,7 @@ import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import request from "supertest";
 import { app } from "../../../app";
 import { prisma } from "../../../lib/prisma";
+import { hash } from "bcryptjs";
 
 describe("Validate Check ins (e2e)", async () => {
   beforeAll(async () => {
@@ -13,10 +14,13 @@ describe("Validate Check ins (e2e)", async () => {
   });
 
   it("should be able to validate a check in", async () => {
-    const responseUser = await request(app.server).post("/users").send({
-      name: "teste 10",
-      email: "ayyranaai91@gmail.com",
-      password: "ayran123",
+    const responseUser = await prisma.user.create({
+      data: {
+        name: "teste 10",
+        email: "ayyranaai91@gmail.com",
+        password_hash: await hash("ayran123", 6),
+        role: "ADMIN",
+      },
     });
 
     const response = await request(app.server).post("/sessions").send({
@@ -38,7 +42,7 @@ describe("Validate Check ins (e2e)", async () => {
 
     const checkIn = await prisma.checkIn.create({
       data: {
-        user_id: responseUser.body.id,
+        user_id: responseUser.id,
         gym_id: gym.id,
       },
     });
