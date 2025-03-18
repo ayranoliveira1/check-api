@@ -3,12 +3,12 @@ import { FastifyReply, FastifyRequest } from "fastify";
 import { z } from "zod";
 
 export async function nearbyGyms(request: FastifyRequest, reply: FastifyReply) {
-  const nearbyGymsBodySchema = z.object({
+  const nearbyGymsQuerySchema = z.object({
     latitude: z.number().refine((value) => Math.abs(value) <= 90),
     longitude: z.number().refine((value) => Math.abs(value) <= 180),
   });
 
-  const { latitude, longitude } = nearbyGymsBodySchema.parse(request.body);
+  const { latitude, longitude } = nearbyGymsQuerySchema.parse(request.query);
 
   const nearbyGymsUseCase = makeFetchNearbyGymsUseCase();
 
