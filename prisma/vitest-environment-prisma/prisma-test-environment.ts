@@ -2,7 +2,7 @@ import "dotenv/config";
 
 import { randomUUID } from "node:crypto";
 import { execSync } from "node:child_process";
-import { Environment } from "vitest";
+import { Environment } from "vitest/environments";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
@@ -19,11 +19,10 @@ function generateDatabaseURL(schema: string) {
   return url.toString();
 }
 
-export default <Environment>{
+const prismaTestEnvironment: Environment = {
   name: "prisma",
   transformMode: "ssr",
-
-  setup() {
+  async setup() {
     const schema = randomUUID();
     const databaseURL = generateDatabaseURL(schema);
     console.log("databaseURL", databaseURL);
@@ -43,3 +42,5 @@ export default <Environment>{
     };
   },
 };
+
+export default prismaTestEnvironment;
