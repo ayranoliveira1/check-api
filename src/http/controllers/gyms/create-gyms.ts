@@ -1,4 +1,4 @@
-import { makeCreateGymUseCase } from "@/use-cases/factories/make-create-gym-use-case";
+import { makeCreateGymUseCase } from "../../../use-cases/factories/make-create-gym-use-case";
 import { FastifyReply, FastifyRequest } from "fastify";
 import { z } from "zod";
 
@@ -24,5 +24,5 @@ export async function createGyms(request: FastifyRequest, reply: FastifyReply) {
     longitude,
   });
 
-  reply.code(200).send();
+  reply.code(201).send();
 }

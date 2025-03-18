@@ -1,4 +1,4 @@
-import { makeChekInUseCase } from "@/use-cases/factories/make-check-in-use-case";
+import { makeChekInUseCase } from "../../../use-cases/factories/make-check-in-use-case";
 import { FastifyReply, FastifyRequest } from "fastify";
 import { z } from "zod";
 

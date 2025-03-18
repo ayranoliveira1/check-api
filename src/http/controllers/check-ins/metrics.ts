@@ -1,4 +1,4 @@
-import { makeGetUserMetricsUseCase } from "@/use-cases/factories/make-get-user-metrics-use-case";
+import { makeGetUserMetricsUseCase } from "../../../use-cases/factories/make-get-user-metrics-use-case";
 import { FastifyReply, FastifyRequest } from "fastify";
 
 export async function checkInsMetrics(
