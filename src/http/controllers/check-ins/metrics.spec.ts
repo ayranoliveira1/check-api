@@ -3,7 +3,7 @@ import request from "supertest";
 import { app } from "../../../app";
 import { prisma } from "../../../lib/prisma";
 
-describe("Check-ins history (e2e)", async () => {
+describe("Check-ins metrics (e2e)", async () => {
   beforeAll(async () => {
     await app.ready();
   });
@@ -12,15 +12,15 @@ describe("Check-ins history (e2e)", async () => {
     await app.close();
   });
 
-  it("should be able to list the history of check-ins", async () => {
+  it("should be able to get the total count of check-ins", async () => {
     const responseUser = await request(app.server).post("/users").send({
-      name: "teste 8",
-      email: "ayranaai89@gmail.com",
+      name: "teste 9",
+      email: "ayranaai90@gmail.com",
       password: "ayran123",
     });
 
     const response = await request(app.server).post("/sessions").send({
-      email: "ayranaai89@gmail.com",
+      email: "ayranaai90@gmail.com",
       password: "ayran123",
     });
 
@@ -28,7 +28,7 @@ describe("Check-ins history (e2e)", async () => {
 
     const gym = await prisma.gym.create({
       data: {
-        title: "Academia teste 2",
+        title: "Academia teste 3",
         description: "Academia de musculação",
         phone: "9293989389",
         latitude: -27.2092052,
@@ -50,21 +50,11 @@ describe("Check-ins history (e2e)", async () => {
     });
 
     const responseChekIn = await request(app.server)
-      .get(`/check-ins/history`)
+      .get(`/check-ins/metrics`)
       .set("Authorization", `Bearer ${token}`)
-      .send();
+      .send({});
 
     expect(responseChekIn.status).toBe(200);
-    expect(responseChekIn.body.checkIns).toEqual([
-      expect.objectContaining({
-        gym_id: gym.id,
-        user_id: responseUser.body.id,
-      }),
-
-      expect.objectContaining({
-        gym_id: gym.id,
-        user_id: responseUser.body.id,
-      }),
-    ]);
+    expect(responseChekIn.body.checkInsCount).toEqual(2);
   });
 });
