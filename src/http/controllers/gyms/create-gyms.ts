@@ -24,5 +24,5 @@ export async function createGyms(request: FastifyRequest, reply: FastifyReply) {
     longitude,
   });
 
-  reply.code(201).send();
+  return reply.status(201).send();
 }

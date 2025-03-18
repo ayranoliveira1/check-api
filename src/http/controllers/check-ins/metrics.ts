@@ -11,5 +11,5 @@ export async function checkInsMetrics(
     userId: request.user.sub,
   });
 
-  reply.code(200).send({ checkInsCount });
+  return reply.code(200).send({ checkInsCount });
 }

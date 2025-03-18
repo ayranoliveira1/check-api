@@ -19,5 +19,5 @@ export async function checkInsHistory(
     page,
   });
 
-  reply.code(200).send({ checkIns });
+  return reply.code(200).send({ checkIns });
 }

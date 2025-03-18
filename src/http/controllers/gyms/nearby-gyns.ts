@@ -4,17 +4,20 @@ import { z } from "zod";
 
 export async function nearbyGyms(request: FastifyRequest, reply: FastifyReply) {
   const nearbyGymsQuerySchema = z.object({
-    latitude: z.number().refine((value) => Math.abs(value) <= 90),
-    longitude: z.number().refine((value) => Math.abs(value) <= 180),
+    userLatitude: z.coerce.number().refine((value) => Math.abs(value) <= 90),
+    userLongitude: z.coerce.number().refine((value) => Math.abs(value) <= 180),
   });
 
-  const { latitude, longitude } = nearbyGymsQuerySchema.parse(request.query);
+  const { userLatitude, userLongitude } = nearbyGymsQuerySchema.parse(
+    request.query
+  );
 
   const nearbyGymsUseCase = makeFetchNearbyGymsUseCase();
 
   const { gyms } = await nearbyGymsUseCase.execute({
-    userLatitude: latitude,
-    userLongitude: longitude,
+    userLatitude,
+    userLongitude,
   });
-  reply.code(200).send({ gyms });
+
+  return reply.status(200).send({ gyms });
 }

@@ -30,5 +30,5 @@ export async function createCheckIns(
     userLongitude,
   });
 
-  reply.status(201).send();
+  return reply.status(201).send();
 }
